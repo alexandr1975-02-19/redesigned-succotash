@@ -21,9 +21,9 @@ jobs:
       - name: Unzip project
         run: |
           unzip CoherenceSeedAndroid.zip
-          ls
+          ls CoherenceSeedAndroid
 
-      - name: Build APK with Gradle
+      - name: Build APK
         uses: gradle/gradle-build-action@v2
         with:
           build-root-directory: CoherenceSeedAndroid
