@@ -18,19 +18,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Unzip project
+      - - name: Unzip project
         run: |
           unzip CoherenceSeedAndroid.zip
-          cd CoherenceSeedAndroid
+          cd CoherenceSeedAndroid || cd */CoherenceSeedAndroid
           chmod +x gradlew
 
       - name: Build APK
         run: |
-          cd CoherenceSeedAndroid
+          cd CoherenceSeedAndroid || cd */CoherenceSeedAndroid
           ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: CoherenceSeed-debug-apk
-          path: CoherenceSeedAndroid/app/build/outputs/apk/debug/app-debug.apk
