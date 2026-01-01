@@ -18,13 +18,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - - name: Unzip project
+      - name: Unzip project
         run: |
           unzip CoherenceSeedAndroid.zip
-          cd CoherenceSeedAndroid || cd */CoherenceSeedAndroid
+          PROJECT_DIR=$(find . -type d -name "CoherenceSeedAndroid" | head -n 1)
+          echo "Project dir: $PROJECT_DIR"
+          cd "$PROJECT_DIR"
           chmod +x gradlew
+          ./gradlew --version
 
       - name: Build APK
         run: |
-          cd CoherenceSeedAndroid || cd */CoherenceSeedAndroid
+          PROJECT_DIR=$(find . -type d -name "CoherenceSeedAndroid" | head -n 1)
+          cd "$PROJECT_DIR"
           ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
